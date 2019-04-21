@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import {login} from '../actions';
+
 class Login extends React.Component {
     state = {
         credentials: {
@@ -16,6 +18,14 @@ class Login extends React.Component {
                 [event.target.name]: event.target.value
             }
         })
+    }
+
+    login = event => {
+        event.preventDefault();
+        this.props.login(this.state.credentials)
+            .then(() => {
+                this.props.history.push('/private')
+            })
     }
 
     render() {
@@ -35,11 +45,17 @@ class Login extends React.Component {
                         value={this.state.credentials.password}
                         onChange={this.handleChange}
                     />
-                    <button>Log In</button>
+                    <button onClick={this.login}>Log In</button>
                 </form>
             </div>
         )
     }
 }
 
-export default Login;
+const mapStateToProps = state => {
+    return {
+        
+    }
+}
+
+export default connect(mapStateToProps, {login})(Login);
