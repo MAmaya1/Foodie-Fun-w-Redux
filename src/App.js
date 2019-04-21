@@ -5,6 +5,7 @@ import Login from './components/Login';
 import PrivateRoute from './components/PrivateRoute';
 import PostView from './views/PostView';
 import PostDetails from './components/PostDetails';
+import EditPost from './components/EditPost';
 
 class App extends Component {
   render() {
@@ -13,6 +14,7 @@ class App extends Component {
         <Route exact path='/' component={Login}/>
         <PrivateRoute path='/private' component={PostView}/>
         <Route path='/post-details/:id' component={PostDetails}/>
+        <Route path='/edit-post/:id' component={EditPost}/>
       </Router>
     );
   }

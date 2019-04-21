@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 const PostDetails = props => {
     const post = props.data.find(post => {
@@ -15,6 +16,9 @@ const PostDetails = props => {
             <p>{post.food_rating}</p>
             <p>{post.wait_time}</p>
             <p>{post.item_comment}</p>
+            <Link to={`/edit-post/${post.id}`}>
+                <button>Edit Post</button>
+            </Link>
         </div>
     )
 }
