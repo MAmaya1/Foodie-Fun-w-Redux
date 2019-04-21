@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import Loader from 'react-loader-spinner';
 
 import PostList from '../components/PostList';
 
@@ -14,7 +15,18 @@ class PostView extends React.Component {
     render() {
         return (
             <div className="post-view-container">
-                <PostList data={this.props.data}/>
+                {this.props.fetchingData && (
+                    <Loader className="loader-spinner"type="Rings" color="#ff0000" height={80} width={80}/>
+                )}
+                {this.props.data && (
+                    <PostList data={this.props.data}/>
+                )}
+                {!this.props.data && !this.props.loadDataErr(
+                    <p>No data to show</p>
+                )}
+                {this.props.loadDataErr && (
+                    <p>Cannot load data!</p>
+                )}
             </div>
         )
     }
