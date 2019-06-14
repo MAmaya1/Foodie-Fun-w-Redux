@@ -59,7 +59,7 @@ export const EDIT_POST_FAILURE = 'EDIT_POST_FAILURE'
 
 export const editPost = (id, updatedPost) => dispatch => {
     dispatch({ type: EDIT_POST_START });
-    return axiosWithAuth()
+    axiosWithAuth()
         .put(`https://backend-foodie-fun.herokuapp.com/api/meals/${id}`, updatedPost)
         .then(res => {
             dispatch({

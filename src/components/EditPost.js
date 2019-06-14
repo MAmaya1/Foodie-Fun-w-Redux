@@ -9,7 +9,7 @@ class EditPost extends React.Component {
         restaurant_type: "",
         item_name: "",
         item_photo: "",
-        food_rating: null,
+        food_rating: 0,
         wait_time: "",
         item_comment: ""
     }
@@ -28,7 +28,7 @@ class EditPost extends React.Component {
             food_rating: parseInt(this.state.food_rating)
         }
         this.props.editPost(id, meal);
-        // this.props.history.push(`/post-details/${id}`)
+        this.props.history.push(`/private`)
     }
 
     render() {
