@@ -48,3 +48,29 @@ export const getData = () => dispatch => {
             })
         })
 }
+
+// Edit Post Action Creator
+
+export const EDIT_POST_START = 'EDIT_POST_START'
+export const EDIT_POST_SUCCESS = 'EDIT_POST_SUCCESS';
+export const EDIT_POST_FAILURE = 'EDIT_POST_FAILURE'
+
+// Edit Post Action Constructor
+
+export const editPost = (id, updatedPost) => dispatch => {
+    dispatch({ type: EDIT_POST_START });
+    return axiosWithAuth()
+        .put(`https://backend-foodie-fun.herokuapp.com/api/meals/${id}`, updatedPost)
+        .then(res => {
+            dispatch({
+                type: EDIT_POST_SUCCESS,
+                payload: res.data
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type: EDIT_POST_FAILURE,
+                payload: err
+            })
+        })
+}

@@ -4,7 +4,10 @@ import {
     LOGIN_FAILURE,    
     FETCH_DATA_START,
     FETCH_DATA_SUCCESS,
-    FETCH_DATA_FAILURE
+    FETCH_DATA_FAILURE,
+    EDIT_POST_START,
+    EDIT_POST_SUCCESS,
+    EDIT_POST_FAILURE
 } from '../actions/index';
 
 // Set Initial State
@@ -14,7 +17,10 @@ const initialState = {
     loggingIn: false,
     loginError: null,
     fetchingData: false,
-    loadDataErr: null
+    loadDataErr: null,
+    editingPost: false,
+    editSuccess: false,
+    editFailure: null
 }
 
 function reducer(state = initialState, action) {
@@ -60,6 +66,29 @@ function reducer(state = initialState, action) {
                 ...state,
                 fetchingData: false,
                 loadDataErr: action.payload
+            }
+
+        case EDIT_POST_START:
+            return {
+                ...state,
+                editingPost: true,
+                editFailure: null
+            }
+
+        case EDIT_POST_SUCCESS:
+            return {
+                ...state,
+                data: action.payload,
+                editingPost: false,
+                editSuccess: true
+            }
+        
+        case EDIT_POST_FAILURE:
+            return {
+                ...state,
+                editingPost: false,
+                editSuccess: false,
+                editFailure: action.payload
             }
 
         default:

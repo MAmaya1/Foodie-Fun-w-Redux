@@ -1,4 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
+
+import {editPost} from '../actions';
 
 class EditPost extends React.Component {
     state = {
@@ -17,62 +20,102 @@ class EditPost extends React.Component {
         })
     }
 
+    updatePost = event => {
+        event.preventDefault();
+        const id = this.props.match.params.id;
+        const meal = {
+            ...this.state,
+            food_rating: parseInt(this.state.food_rating)
+        }
+        this.props.editPost(id, meal);
+        // this.props.history.push(`/post-details/${id}`)
+    }
+
     render() {
         return (
             <div className="update-post">
                 <h2>Update Post</h2>
                 <form>
-                <input
-                    type="text"
-                    name="restaurant_name"
-                    onChange={this.handleChange}
-                    placeholder="Restaurant Name:"
-                />
-                <input
-                    type="text"
-                    name="restaurant_type"
-                    onChange={this.handleChange}
-                    placeholder="Restaurant Type:"
-                />
-                <input
-                    type="text"
-                    name="item_name"
-                    onChange={this.handleChange}
-                    placeholder="Item Name (Required): "
-                />
-                <input
-                    type="text"
-                    name="item_photo"
-                    onChange={this.handleChange}
-                    placeholder="Image url:"
-                />
-                <input
-                    type="text"
-                    name="food_rating"
-                    onChange={this.handleChange}
-                    placeholder="Rating:"
-                />
-                <input
-                    type="text"
-                    name="wait_time"
-                    onChange={this.handleChange}
-                    placeholder="Wait Time:"
-                />
-                <input
-                    className="addPost"
-                    type="text"
-                    onChange={this.props.handleChange}
-                    value={this.props.item_comment}
-                    placeholder="Comment:"
-                    name="item_comment"
-                />
-                <button type="submit" onClick={this.updatePost} className="btn">
-                    Save
-                </button>
+                    <label htmlFor="restaurant_name"/>
+                    <input
+                        id="restaurant_name"
+                        type="text"
+                        name="restaurant_name"
+                        value={this.state.restaurant_name}
+                        placeholder="Restaurant Name:"
+                        onChange={this.handleChange}
+                    />
+                    <label htmlFor="restaurant_type"/>
+                    <input
+                        id="restaurant-type"
+                        type="text"
+                        name="restaurant_type"
+                        value={this.state.restaurant_type}
+                        placeholder="Restaurant Type:"
+                        onChange={this.handleChange}
+                    />
+                    <label htmlFor="item_name"/>
+                    <input
+                        id="item_name"
+                        type="text"
+                        name="item_name"
+                        value={this.state.item_name}
+                        placeholder="Item Name (required): "
+                        onChange={this.handleChange}
+                    />
+                    <label htmlFor="item_photo"/>
+                    <input
+                        id="item_photo"
+                        type="text"
+                        name="item_photo"
+                        value={this.state.item_photo}
+                        placeholder="Image url:"
+                        onChange={this.handleChange}
+                    />
+                    <label htmlFor="food_rating"/>
+                    <input
+                        id="food_rating"
+                        type="text"
+                        name="food_rating"
+                        value={this.state.food_rating}
+                        placeholder="Rating:"
+                        onChange={this.handleChange}
+                    />
+                    <label htmlFor="wait_time"/>
+                    <input
+                        id="wait_time"
+                        type="text"
+                        name="wait_time"
+                        value={this.state.wait_time}
+                        placeholder="Wait Time:"
+                        onChange={this.handleChange}
+                    />
+                    <label htmlFor="item_comment"/>
+                    <input
+                        id="item_comment"
+                        type="text"
+                        name="item_comment"
+                        value={this.state.item_comment}
+                        placeholder="Comment:"
+                        onChange={this.handleChange}
+                    />
+                    <button type="submit" onClick={this.updatePost}>
+                        Save
+                    </button>
                 </form>
+                {this.props.editSuccess && (
+                    <p>Item added successfully!</p>
+                )}
             </div>
         )
     }
 }
 
-export default EditPost;
+const mapStateToProps = state => {
+    return {
+        data: state.data,
+        editSuccess: state.editSuccess
+    }
+}
+
+export default connect(mapStateToProps, {editPost})(EditPost);
