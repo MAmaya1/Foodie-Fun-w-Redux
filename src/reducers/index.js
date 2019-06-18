@@ -1,7 +1,10 @@
 import {
     LOGIN_START,
     LOGIN_SUCCESS,
-    LOGIN_FAILURE,    
+    LOGIN_FAILURE,
+    ADD_USER_START,
+    ADD_USER_SUCCESS,
+    ADD_USER_FAILURE,
     FETCH_DATA_START,
     FETCH_DATA_SUCCESS,
     FETCH_DATA_FAILURE,
@@ -16,6 +19,8 @@ const initialState = {
     data: [],
     loggingIn: false,
     loginError: null,
+    addingUser: false,
+    addUserError: null,
     fetchingData: false,
     loadDataErr: null,
     editingPost: false,
@@ -44,6 +49,27 @@ function reducer(state = initialState, action) {
                 ...state,
                 loggingIn: false,
                 loginError: action.payload
+            }
+
+        case ADD_USER_START: 
+            return {
+                ...state,
+                addingUser: true,
+                addUserError: null
+            }
+        
+        case ADD_USER_SUCCESS:
+            return {
+                ...state,
+                addingUser: false,
+                addUserError: null
+            }
+        
+        case ADD_USER_FAILURE:
+            return {
+                ...state,
+                addingUser: false,
+                addUserError: action.payload
             }
 
         case FETCH_DATA_START:

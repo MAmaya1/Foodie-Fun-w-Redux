@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 
-import {login} from '../actions';
+import { addUser } from '../actions';
 
-class Login extends React.Component {
+class RegistrationForm extends React.Component {
     state = {
         credentials: {
             username: '',
@@ -22,19 +21,20 @@ class Login extends React.Component {
         })
     }
 
-    login = event => {
+    addUser = event => {
         event.preventDefault();
-        this.props.login(this.state.credentials)
-            .then(() => {
-                this.props.history.push('/private')
-            })
+        this.props.addUser(this.state.credentials)
+        .then(() => {
+            this.props.history.push('/private')
+        })
     }
 
     render() {
         return (
-            <div className="login">
-                <h1>Login</h1>
+            <div className="register">
+                <h2>Register Here</h2>
                 <form>
+                    <label htmlFor="username"/>
                     <input
                         id="username"
                         type="text"
@@ -52,17 +52,16 @@ class Login extends React.Component {
                         placeholder="password"
                         onChange={this.handleChange}
                     />
-                    <button onClick={this.login}>
-                        {this.props.loggingIn ? (
+                    <button onClick={this.addUser}>
+                        {this.props.addingUser ? (
                             <Loader type="ThreeDots" color="#somecolor" height={20} width={20} />
-                        ) : ('Log In')}
+                        ) : ('Sign Up')}
                     </button>
                     <div className="spacer">
-                        {this.props.loginError && (
-                            <p className="err">{this.props.loginError}</p>
+                        {this.props.addUserError && (
+                            <p>{this.props.addUserError}</p>
                         )}
                     </div>
-                    <p>Not a registered user? <Link to="/register">Sign Up</Link></p>
                 </form>
             </div>
         )
@@ -71,9 +70,9 @@ class Login extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        loggingIn: state.loggingIn,
-        loginError: state.loginError
+        addingUser: state.addingUser,
+        addUserError: state.addUserFailure
     }
 }
 
-export default connect(mapStateToProps, {login})(Login);
+export default connect(mapStateToProps, {addUser})(RegistrationForm);

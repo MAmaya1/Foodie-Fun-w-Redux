@@ -19,7 +19,28 @@ export const login = credentials => dispatch => {
             dispatch({ type: LOGIN_SUCCESS, payload: res.data })
         })
         .catch(err => {
-            dispatch({ type: LOGIN_FAILURE, payload: err })
+            dispatch({ type: LOGIN_FAILURE, payload: 'Incorrect username and/or password' })
+        })
+}
+
+// Add New User Action Types
+
+export const ADD_USER_START = 'ADD_USER_START';
+export const ADD_USER_SUCCESS = 'ADD_USER_SUCCESS';
+export const ADD_USER_FAILURE = 'ADD_USER_FAILURE';
+
+// Add New User Action Creator
+
+export const addUser = credentials => dispatch => {
+    dispatch({ type: ADD_USER_START });
+    return axios
+        .post('https://backend-foodie-fun.herokuapp.com/api/auth/register', credentials)
+        .then(res => {
+            localStorage.setItem('token', res.data.token);
+            dispatch({ type: ADD_USER_SUCCESS, payload: res.data })
+        })
+        .catch(err => {
+            dispatch({ type: ADD_USER_FAILURE, payload: 'This username is already taken.'})
         })
 }
 
@@ -49,13 +70,13 @@ export const getData = () => dispatch => {
         })
 }
 
-// Edit Post Action Creator
+// Edit Post Action Types
 
 export const EDIT_POST_START = 'EDIT_POST_START'
 export const EDIT_POST_SUCCESS = 'EDIT_POST_SUCCESS';
 export const EDIT_POST_FAILURE = 'EDIT_POST_FAILURE'
 
-// Edit Post Action Constructor
+// Edit Post Action Creator
 
 export const editPost = (id, updatedPost) => dispatch => {
     dispatch({ type: EDIT_POST_START });
