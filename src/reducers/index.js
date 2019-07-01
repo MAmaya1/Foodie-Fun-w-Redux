@@ -31,7 +31,7 @@ const initialState = {
     loadDataErr: null,
     addingPost: false,
     addingPostSuccess: false,
-    addingPostFailure: null,
+    addPostFailure: null,
     editingPost: false,
     editSuccess: false,
     editFailure: null,
@@ -110,13 +110,12 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 addingPost: true,
-                addingPostFailure: null
+                addPostFailure: null
             }
 
         case ADD_POST_SUCCESS:
             return {
                 ...state,
-                data: action.payload,
                 addingPost: false,
                 addingPostSuccess: true
             }
@@ -126,7 +125,7 @@ function reducer(state = initialState, action) {
                 ...state,
                 addingPost: false,
                 addingPostSuccess: false,
-                addingPostFailure: action.payload
+                addPostFailure: action.payload
             }
 
         case EDIT_POST_START:
@@ -139,7 +138,6 @@ function reducer(state = initialState, action) {
         case EDIT_POST_SUCCESS:
             return {
                 ...state,
-                data: action.payload,
                 editingPost: false,
                 editSuccess: true
             }
