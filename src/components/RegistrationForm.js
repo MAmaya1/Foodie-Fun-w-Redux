@@ -25,7 +25,9 @@ class RegistrationForm extends React.Component {
         event.preventDefault();
         this.props.addUser(this.state.credentials)
         .then(() => {
-            this.props.history.push('/private')
+            !this.props.addUserError && (
+                this.props.history.push('/private')
+            )
         })
     }
 

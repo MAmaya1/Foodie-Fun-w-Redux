@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import Loader from 'react-loader-spinner';
 
 import {addPost} from '../actions';
 
@@ -27,7 +28,9 @@ class AddPost extends React.Component {
         }
         this.props.addPost(meal)
             .then(() => {
-                this.props.history.push('/private');
+                !this.props.addPostFailure && (
+                    this.props.history.push('/private')
+                )
             })
     }
 
@@ -100,11 +103,13 @@ class AddPost extends React.Component {
                         onChange={this.handleChange}
                     />
                     <button type="submit" onClick={this.addPost}>
-                        Save
+                        {this.props.addingPost ? (
+                            <Loader type="ThreeDots" color="#somecolor" height={20} width={20} />
+                        ) : ('Save')}
                     </button>
                 </form>
-                {this.props.addPostSuccess && (
-                    <p>Item added successfully!</p>
+                {this.props.addPostFailure && (
+                    <p>{this.props.addPostFailure}</p>
                 )}
             </div>
         )
@@ -114,7 +119,6 @@ class AddPost extends React.Component {
 const mapStateToProps = state => {
     return {
         addingPost: state.addingPost,
-        addPostSuccess: state.addPostSuccess,
         addPostFailure: state.addPostFailure
     }
 }

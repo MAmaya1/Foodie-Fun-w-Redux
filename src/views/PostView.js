@@ -24,11 +24,11 @@ class PostView extends React.Component {
                     {this.props.data && (
                         <PostList data={this.props.data}/>
                     )}
-                    {!this.props.data && !this.props.loadDataErr(
-                        <p>No data to show</p>
+                    {this.props.data.length === 0 && !this.props.fetchingData && !this.props.loadDataErr && (
+                        <p>You do not have any posts.</p>
                     )}
                     {this.props.loadDataErr && (
-                        <p>Cannot load data!</p>
+                        <p>{this.props.loadDataErr}</p>
                     )}
                 </div>
             </>

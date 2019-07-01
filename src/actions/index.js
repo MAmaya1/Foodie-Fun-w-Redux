@@ -22,7 +22,7 @@ export const login = credentials => dispatch => {
             })
         })
         .catch(err => {
-            dispatch({ type: LOGIN_FAILURE, payload: 'Incorrect username and/or password' })
+            dispatch({ type: LOGIN_FAILURE, payload: err.response.data.error })
         })
 }
 
@@ -46,7 +46,7 @@ export const addUser = credentials => dispatch => {
             })
         })
         .catch(err => {
-            dispatch({ type: ADD_USER_FAILURE, payload: 'This username is already taken.'})
+            dispatch({ type: ADD_USER_FAILURE, payload: err.response.data.error })
         })
 }
 
@@ -71,7 +71,7 @@ export const getData = () => dispatch => {
         .catch(err => {
             dispatch({
                 type: FETCH_DATA_FAILURE,
-                payload: err
+                payload: err.response.data.error
             })
         })
 }
@@ -97,7 +97,7 @@ export const addPost = newPost => dispatch => {
         .catch(err => {
             dispatch({
                 type: ADD_POST_FAILURE,
-                payload: err
+                payload: err.response.data.error
             })
         })
 }
@@ -123,7 +123,7 @@ export const editPost = (id, updatedPost) => dispatch => {
         .catch(err => {
             dispatch({
                 type: EDIT_POST_FAILURE,
-                payload: err
+                payload: err.response.data.error
             })
         })
 }
@@ -149,7 +149,7 @@ export const deletePost = id => dispatch => {
         .catch(err => {
             dispatch({
                 type: DELETE_POST_FAILURE,
-                payload: err
+                payload: err.response.data.error
             })
         })
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import Loader from 'react-loader-spinner';
 
 import {editPost} from '../actions';
 
@@ -29,7 +30,9 @@ class EditPost extends React.Component {
         }
         this.props.editPost(id, meal)
             .then(() => {
-                this.props.history.push(`/private`);
+                !this.props.editFailure && (
+                    this.props.history.push('/private')
+                )
             })
     }
 
@@ -102,11 +105,13 @@ class EditPost extends React.Component {
                         onChange={this.handleChange}
                     />
                     <button type="submit" onClick={this.updatePost}>
-                        Save
+                        {this.props.editingPost ? (
+                            <Loader type="ThreeDots" color="#somecolor" height={20} width={20} />
+                        ) : ('Save')}
                     </button>
                 </form>
-                {this.props.editSuccess && (
-                    <p>Item added successfully!</p>
+                {this.props.editFailure && (
+                    <p>{this.props.editFailure}</p>
                 )}
             </div>
         )
@@ -115,8 +120,8 @@ class EditPost extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        data: state.data,
-        editSuccess: state.editSuccess
+        editingPost: state.editingPost,
+        editFailure: state.editFailure
     }
 }
 
