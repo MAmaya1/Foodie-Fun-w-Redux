@@ -16,7 +16,10 @@ export const login = credentials => dispatch => {
         .post('https://backend-foodie-fun.herokuapp.com/api/auth/login', credentials)
         .then(res => {
             localStorage.setItem('token', res.data.token);
-            dispatch({ type: LOGIN_SUCCESS, payload: res.data })
+            dispatch({ 
+                type: LOGIN_SUCCESS, 
+                payload: res.data 
+            })
         })
         .catch(err => {
             dispatch({ type: LOGIN_FAILURE, payload: 'Incorrect username and/or password' })
@@ -37,7 +40,10 @@ export const addUser = credentials => dispatch => {
         .post('https://backend-foodie-fun.herokuapp.com/api/auth/register', credentials)
         .then(res => {
             localStorage.setItem('token', res.data.token);
-            dispatch({ type: ADD_USER_SUCCESS, payload: res.data })
+            dispatch({ 
+                type: ADD_USER_SUCCESS, 
+                payload: res.data 
+            })
         })
         .catch(err => {
             dispatch({ type: ADD_USER_FAILURE, payload: 'This username is already taken.'})
@@ -70,11 +76,37 @@ export const getData = () => dispatch => {
         })
 }
 
+// Add Post Action Types
+
+export const ADD_POST_START = 'ADD_POST_START';
+export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
+export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
+
+// Add Post Action Creator
+
+export const addPost = newPost => dispatch => {
+    dispatch({ type: ADD_POST_START });
+    axiosWithAuth()
+        .post('https://backend-foodie-fun.herokuapp.com/api/meals', newPost)
+        .then(res => {
+            dispatch({
+                type: ADD_POST_SUCCESS,
+                payload: res.data
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type: ADD_POST_FAILURE,
+                payload: err
+            })
+        })
+}
+
 // Edit Post Action Types
 
-export const EDIT_POST_START = 'EDIT_POST_START'
+export const EDIT_POST_START = 'EDIT_POST_START';
 export const EDIT_POST_SUCCESS = 'EDIT_POST_SUCCESS';
-export const EDIT_POST_FAILURE = 'EDIT_POST_FAILURE'
+export const EDIT_POST_FAILURE = 'EDIT_POST_FAILURE';
 
 // Edit Post Action Creator
 
@@ -91,6 +123,32 @@ export const editPost = (id, updatedPost) => dispatch => {
         .catch(err => {
             dispatch({
                 type: EDIT_POST_FAILURE,
+                payload: err
+            })
+        })
+}
+
+// Delete Post Action Types
+
+export const DELETE_POST_START = 'DELETE_POST_START';
+export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
+export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
+
+// Delete Post Action Creator
+
+export const deletePost = id => dispatch => {
+    dispatch({ type: DELETE_POST_START });
+    axiosWithAuth()
+        .delete(`https://backend-foodie-fun.herokuapp.com/api/meals/${id}`)
+        .then(res => {
+            dispatch({
+                type: DELETE_POST_SUCCESS,
+                payload: res.data
+            })
+        })
+        .catch(err => {
+            dispatch({
+                type: DELETE_POST_FAILURE,
                 payload: err
             })
         })

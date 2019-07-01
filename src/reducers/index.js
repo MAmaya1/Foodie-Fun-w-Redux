@@ -8,9 +8,15 @@ import {
     FETCH_DATA_START,
     FETCH_DATA_SUCCESS,
     FETCH_DATA_FAILURE,
+    ADD_POST_START,
+    ADD_POST_SUCCESS,
+    ADD_POST_FAILURE,
     EDIT_POST_START,
     EDIT_POST_SUCCESS,
-    EDIT_POST_FAILURE
+    EDIT_POST_FAILURE,
+    DELETE_POST_START,
+    DELETE_POST_SUCCESS,
+    DELETE_POST_FAILURE
 } from '../actions/index';
 
 // Set Initial State
@@ -23,9 +29,15 @@ const initialState = {
     addUserError: null,
     fetchingData: false,
     loadDataErr: null,
+    addingPost: false,
+    addingPostSuccess: false,
+    addingPostFailure: null,
     editingPost: false,
     editSuccess: false,
-    editFailure: null
+    editFailure: null,
+    deletingPost: false,
+    deletePostSuccess: false,
+    deletePostFailure: null
 }
 
 function reducer(state = initialState, action) {
@@ -94,6 +106,29 @@ function reducer(state = initialState, action) {
                 loadDataErr: action.payload
             }
 
+        case ADD_POST_START:
+            return {
+                ...state,
+                addingPost: true,
+                addingPostFailure: null
+            }
+
+        case ADD_POST_SUCCESS:
+            return {
+                ...state,
+                data: action.payload,
+                addingPost: false,
+                addingPostSuccess: true
+            }
+
+        case ADD_POST_FAILURE:
+            return {
+                ...state,
+                addingPost: false,
+                addingPostSuccess: false,
+                addingPostFailure: action.payload
+            }
+
         case EDIT_POST_START:
             return {
                 ...state,
@@ -115,6 +150,28 @@ function reducer(state = initialState, action) {
                 editingPost: false,
                 editSuccess: false,
                 editFailure: action.payload
+            }
+
+        case DELETE_POST_START:
+            return {
+                ...state,
+                deletingPost: true,
+                deletePostFailure: null
+            }
+
+        case DELETE_POST_SUCCESS:
+            return {
+                ...state,
+                deletingPost: false,
+                deletePostSuccess: true
+            }
+
+        case DELETE_POST_FAILURE:
+            return {
+                ...state,
+                deletingPost: false,
+                deletePostSuccess: false,
+                deletePostFailure: action.payload
             }
 
         default:
