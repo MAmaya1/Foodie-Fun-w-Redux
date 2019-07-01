@@ -25,8 +25,10 @@ class AddPost extends React.Component {
         const meal = {
             ...this.state
         }
-        this.props.addPost(meal);
-        this.props.history.push('/private')
+        this.props.addPost(meal)
+            .then(() => {
+                this.props.history.push('/private');
+            })
     }
 
     render() {

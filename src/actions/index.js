@@ -86,7 +86,7 @@ export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 
 export const addPost = newPost => dispatch => {
     dispatch({ type: ADD_POST_START });
-    axiosWithAuth()
+    return axiosWithAuth()
         .post('https://backend-foodie-fun.herokuapp.com/api/meals', newPost)
         .then(res => {
             dispatch({
@@ -112,7 +112,7 @@ export const EDIT_POST_FAILURE = 'EDIT_POST_FAILURE';
 
 export const editPost = (id, updatedPost) => dispatch => {
     dispatch({ type: EDIT_POST_START });
-    axiosWithAuth()
+    return axiosWithAuth()
         .put(`https://backend-foodie-fun.herokuapp.com/api/meals/${id}`, updatedPost)
         .then(res => {
             dispatch({
@@ -138,7 +138,7 @@ export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
 
 export const deletePost = id => dispatch => {
     dispatch({ type: DELETE_POST_START });
-    axiosWithAuth()
+    return axiosWithAuth()
         .delete(`https://backend-foodie-fun.herokuapp.com/api/meals/${id}`)
         .then(res => {
             dispatch({

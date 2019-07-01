@@ -27,8 +27,10 @@ class EditPost extends React.Component {
             ...this.state,
             food_rating: parseInt(this.state.food_rating)
         }
-        this.props.editPost(id, meal);
-        this.props.history.push(`/private`)
+        this.props.editPost(id, meal)
+            .then(() => {
+                this.props.history.push(`/private`);
+            })
     }
 
     render() {
