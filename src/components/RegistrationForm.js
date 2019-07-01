@@ -71,7 +71,7 @@ class RegistrationForm extends React.Component {
 const mapStateToProps = state => {
     return {
         addingUser: state.addingUser,
-        addUserError: state.addUserFailure
+        addUserError: state.addUserError
     }
 }
 
