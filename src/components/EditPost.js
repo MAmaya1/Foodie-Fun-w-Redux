@@ -8,6 +8,7 @@ class EditPost extends React.Component {
     state = {
         restaurant_name: "",
         restaurant_type: "",
+        date_visited: "",
         item_name: "",
         item_photo: "",
         food_rating: 0,
@@ -57,6 +58,14 @@ class EditPost extends React.Component {
                         name="restaurant_type"
                         value={this.state.restaurant_type}
                         placeholder="Restaurant Type:"
+                        onChange={this.handleChange}
+                    />
+                    <label htmlFor="date_visited"/>
+                    <input
+                        id="date_visited"
+                        type="date"
+                        name="date_visited"
+                        value={this.state.date_visited}
                         onChange={this.handleChange}
                     />
                     <label htmlFor="item_name"/>
