@@ -1,6 +1,52 @@
 import React from 'react';
-
 import {NavLink} from 'react-router-dom';
+import styled from 'styled-components';
+
+// Styled Components
+
+const NavigationBar = styled.nav`
+    background: lightblue;
+    height: 60px;
+`
+
+const NavWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 700px;
+    height: 100%;
+    margin: auto;
+    padding: 0 1rem;
+    background: white;
+`
+
+const Branding = styled.div`
+    font-size: 2rem;
+`
+
+const Links = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 200px;
+
+    .link {
+        text-decoration: none;
+        color: black;
+    }
+
+    .fas {
+        font-size: 1.5rem;
+    }
+`
+
+const SignOutButton = styled.button`
+    border: none;
+    background: none;
+`
+
+// NavBar Component Constructor
 
 class NavBar extends React.Component {
     
@@ -11,12 +57,12 @@ class NavBar extends React.Component {
 
     render() {
         return (
-            <div className="nav-bar">
-                <div className="nav-wrapper">
-                    <div className="branding">
+            <NavigationBar>
+                <NavWrapper>
+                    <Branding>
                         <strong>Foodie Fun</strong>
-                    </div>
-                    <div className="links">
+                    </Branding>
+                    <Links>
                         <NavLink
                             className="link"
                             to="/private"
@@ -29,15 +75,15 @@ class NavBar extends React.Component {
                         >
                             <i className="fas fa-plus"/>
                         </NavLink>
-                        <button
+                        <SignOutButton
                             className="logout"
                             onClick={this.signOut}
                         >
                             <i className="fas fa-sign-out-alt"/>
-                        </button>
-                    </div>
-                </div>
-            </div>
+                        </SignOutButton>
+                    </Links>
+                </NavWrapper>
+            </NavigationBar>
         )
     }
 }
