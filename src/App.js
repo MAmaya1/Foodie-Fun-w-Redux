@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 // Import Components
 
+import NavBar from './components/NavBar';
 import Login from './components/Login';
 import RegistrationForm from './components/RegistrationForm';
 import PrivateRoute from './components/PrivateRoute';
@@ -15,6 +16,7 @@ class App extends Component {
   render() {
     return (
       <Router>
+        <NavBar/>
         <Route exact path='/' component={Login}/>
         <PrivateRoute path='/private' component={PostView}/>
         <Route path='/register' component={RegistrationForm}/>
