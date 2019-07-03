@@ -22,7 +22,6 @@ class App extends Component {
         <Route path='/register' component={RegistrationForm}/>
         <Route path='/post-details/:id' component={PostDetails}/>
         <Route path='/add-post' component={AddPost}/>
-        <Route path='/edit-post/:id' component={EditPost}/>
       </Router>
     );
   }

@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Route, Redirect} from 'react-router-dom';
 import Loader from 'react-loader-spinner';
+import onClickOutside from 'react-onclickoutside';
 
 import {editPost} from '../actions';
 
@@ -24,20 +26,18 @@ class EditPost extends React.Component {
 
     updatePost = event => {
         event.preventDefault();
-        const id = this.props.match.params.id;
+        const id = this.props.post.id;
         const meal = {
             ...this.state,
             food_rating: parseInt(this.state.food_rating)
         }
-        this.props.editPost(id, meal)
-            .then(() => {
-                !this.props.editFailure && (
-                    this.props.history.push('/private')
-                )
-            })
+        this.props.editPost(id, meal);
     }
 
     render() {
+        if (this.props.editSuccess) {
+            return <Redirect to="/private"/>
+        }
         return (
             <div className="update-post">
                 <h2>Update Post</h2>
@@ -130,8 +130,9 @@ class EditPost extends React.Component {
 const mapStateToProps = state => {
     return {
         editingPost: state.editingPost,
+        editSuccess: state.editPostSuccess,
         editFailure: state.editFailure
     }
 }
 
-export default connect(mapStateToProps, {editPost})(EditPost);
+export default connect(mapStateToProps, {editPost})(onClickOutside(EditPost));
