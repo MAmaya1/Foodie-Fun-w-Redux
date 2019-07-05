@@ -1,10 +1,85 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Route, Redirect} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 import Loader from 'react-loader-spinner';
+import styled from 'styled-components';
 import onClickOutside from 'react-onclickoutside';
 
+// Import Actions
+
 import {editPost} from '../actions';
+
+// Styled Components
+
+const EditPostContainer = styled.div`
+    max-width: 400px;
+    margin: 10% auto;
+    padding: 1rem 1.5rem;
+    background: white;
+
+    h2 {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+
+    .error-message {
+        color: red;
+    }
+
+    @media(max-width: 500px) {
+        max-width: 250px;
+        margin-top: 5%;
+
+        h2 {
+            font-size: 1.2rem;
+        }
+
+        .error-message {
+            font-size: 0.8rem;
+            margin-bottom: 0;
+        }
+    }
+`
+
+const EditPostForm = styled.form`
+    display: flex;
+    flex-direction: column;
+
+    label {
+        margin: 10px 0 5px 0;
+        font-size: 1rem;
+    }
+
+    input {
+        height: 30px;
+        width: 100%;
+        backround: white;
+        border: 2px solid grey;
+    }
+
+    @media (max-width: 500px) {
+        label {
+            margin-top: 5px;
+            font-size: 0.8rem;
+        }
+
+        input {
+            height: 25px;
+        }
+    }
+`
+
+const SaveButton = styled.button`
+    margin: 20px auto auto auto;
+    height: 30px;
+    width: 90px;
+
+    @media(max-width: 500px) {
+        margin-top: 15px;
+    }
+`
+
+// EditPost Component Constructor
 
 class EditPost extends React.Component {
     state = {
@@ -39,28 +114,26 @@ class EditPost extends React.Component {
             return <Redirect to="/private"/>
         }
         return (
-            <div className="update-post">
+            <EditPostContainer>
                 <h2>Update Post</h2>
-                <form>
-                    <label htmlFor="restaurant_name"/>
+                <EditPostForm>
+                    <label htmlFor="restaurant_name">Restaurant Name</label>
                     <input
                         id="restaurant_name"
                         type="text"
                         name="restaurant_name"
                         value={this.state.restaurant_name}
-                        placeholder="Restaurant Name:"
                         onChange={this.handleChange}
                     />
-                    <label htmlFor="restaurant_type"/>
+                    <label htmlFor="restaurant_type">Restaurant Type</label>
                     <input
-                        id="restaurant-type"
+                        id="restaurant_type"
                         type="text"
                         name="restaurant_type"
                         value={this.state.restaurant_type}
-                        placeholder="Restaurant Type:"
                         onChange={this.handleChange}
                     />
-                    <label htmlFor="date_visited"/>
+                    <label htmlFor="date_visited">Date Visited</label>
                     <input
                         id="date_visited"
                         type="date"
@@ -68,61 +141,56 @@ class EditPost extends React.Component {
                         value={this.state.date_visited}
                         onChange={this.handleChange}
                     />
-                    <label htmlFor="item_name"/>
+                    <label htmlFor="item_name">Item Ordered</label>
                     <input
                         id="item_name"
                         type="text"
                         name="item_name"
                         value={this.state.item_name}
-                        placeholder="Item Name (required): "
                         onChange={this.handleChange}
                     />
-                    <label htmlFor="item_photo"/>
+                    <label htmlFor="item_photo">Image URL</label>
                     <input
                         id="item_photo"
                         type="text"
                         name="item_photo"
                         value={this.state.item_photo}
-                        placeholder="Image url:"
                         onChange={this.handleChange}
                     />
-                    <label htmlFor="food_rating"/>
+                    <label htmlFor="food_rating">Rating (1 to 5)</label>
                     <input
                         id="food_rating"
                         type="text"
                         name="food_rating"
                         value={this.state.food_rating}
-                        placeholder="Rating:"
                         onChange={this.handleChange}
                     />
-                    <label htmlFor="wait_time"/>
+                    <label htmlFor="wait_time">Wait Time</label>
                     <input
                         id="wait_time"
                         type="text"
                         name="wait_time"
                         value={this.state.wait_time}
-                        placeholder="Wait Time:"
                         onChange={this.handleChange}
                     />
-                    <label htmlFor="item_comment"/>
+                    <label htmlFor="item_comment">Comment</label>
                     <input
                         id="item_comment"
                         type="text"
                         name="item_comment"
                         value={this.state.item_comment}
-                        placeholder="Comment:"
                         onChange={this.handleChange}
                     />
-                    <button type="submit" onClick={this.updatePost}>
+                    <SaveButton type="submit" onClick={this.updatePost}>
                         {this.props.editingPost ? (
                             <Loader type="ThreeDots" color="#somecolor" height={20} width={20} />
                         ) : ('Save')}
-                    </button>
-                </form>
+                    </SaveButton>
+                </EditPostForm>
                 {this.props.editFailure && (
-                    <p>{this.props.editFailure}</p>
+                    <p className="error-message">{this.props.editFailure}</p>
                 )}
-            </div>
+            </EditPostContainer>
         )
     }
 }

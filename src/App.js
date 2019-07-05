@@ -10,7 +10,6 @@ import PrivateRoute from './components/PrivateRoute';
 import PostView from './views/PostView';
 import PostDetails from './components/PostDetails';
 import AddPost from './components/AddPost';
-import EditPost from './components/EditPost';
 
 class App extends Component {
   render() {
